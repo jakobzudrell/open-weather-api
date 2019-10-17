@@ -17,6 +17,7 @@ namespace OpenWeatherAPI
         /// </summary>
         public HttpClient Client { get; }
 
+
         #endregion
 
         #region Private Members
@@ -29,7 +30,7 @@ namespace OpenWeatherAPI
         /// <summary>
         /// The base uri for the api
         /// </summary>
-        private readonly string mBaseUri;
+        private readonly string mBaseUri = "https://api.openweathermap.org/data/2.5";
 
         /// <summary>
         /// The api key for this instance
@@ -43,11 +44,9 @@ namespace OpenWeatherAPI
         /// <summary>
         /// Default constructor
         /// </summary>
-        public OpenWeatherAPI(string baseUri, string apiKey)
+        /// <param name="apiKey">The api key to be used</param>
+        public OpenWeatherAPI(string apiKey)
         {
-            // Assign the base uri
-            mBaseUri = baseUri;
-
             // Assign the api key
             mApiKey = apiKey;
 
@@ -70,7 +69,7 @@ namespace OpenWeatherAPI
         /// <returns>A <see cref="CurrentWeather"/> object</returns>
         public async Task<CurrentWeather> GetCurrentWeatherData(int id)
         {
-            return ProcessData<CurrentWeather>(await GetDataAsync($"weather?id={id}&APPID={mApiKey}"));
+            return await GetDataAsync<CurrentWeather>($"weather?id={id}&APPID={mApiKey}");
         }
 
         #endregion
@@ -82,7 +81,7 @@ namespace OpenWeatherAPI
         /// </summary>
         /// <param name="apiQuery">The specified api query</param>
         /// <returns></returns>
-        private async Task<string> GetDataAsync(string apiQuery)
+        private async Task<T> GetDataAsync<T>(string apiQuery)
         {
             try
             {
@@ -93,7 +92,7 @@ namespace OpenWeatherAPI
                 response.EnsureSuccessStatusCode();
 
                 // Read the response as string and return it
-                return await response.Content.ReadAsStringAsync();
+                return ProcessData<T>(await response.Content.ReadAsStringAsync());
             }
             catch(HttpRequestException ex)
             {
@@ -106,8 +105,8 @@ namespace OpenWeatherAPI
         /// <summary>
         /// Processes the given from a given type to its class
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="data"></param>
+        /// <typeparam name="T">The type to be output</typeparam>
+        /// <param name="data">The data to be processed</param>
         /// <returns></returns>
         private T ProcessData<T>(string data)
         {

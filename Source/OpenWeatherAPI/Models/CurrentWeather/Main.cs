@@ -10,11 +10,13 @@ namespace OpenWeatherAPI
     /// </summary>
     public class Main
     {
+        #region Public Properties
+
         /// <summary>
-        /// Temperature. Default unit: Kelvin, Metric: Celsius, Imperial: Farenheit
+        /// Temperature in Kelvin
         /// </summary>
         [JsonProperty("temp")]
-        public double Tempterature { get; set; }
+        public Temperature Temperature { get; set; }
 
         /// <summary>
         /// Atmospheric pressure (on the sea level, if there is no sea_level or grnd_level data), hPa
@@ -57,5 +59,48 @@ namespace OpenWeatherAPI
         /// </summary>
         [JsonProperty("grnd_level")]
         public double GroundLevelPressure { get; set; }
+
+        #endregion
+    }
+
+    /// <summary>
+    /// A temperature object
+    /// </summary>
+    public class Temperature
+    {
+        #region Public Properties
+
+        /// <summary>
+        /// The temperature in Kelvin
+        /// </summary>
+        public double Kelvin { get; set; }
+
+        /// <summary>
+        /// The temperature in Celsius
+        /// </summary>
+        public double Celsius { get; set; }
+
+        /// <summary>
+        /// The temperature in Fahrenheit
+        /// </summary>
+        public double Fahrenheit { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public Temperature(double kelvin)
+        {
+            // Assign the properties
+            Kelvin = kelvin;
+            Celsius = kelvin.ToCelsius();
+            Fahrenheit = kelvin.ToFahrenheit();
+        }
+
+        #endregion
+
     }
 }

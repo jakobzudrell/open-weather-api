@@ -72,6 +72,6 @@ namespace OpenWeatherAPI
         [JsonProperty("snow")]
         public Snow Snow { get; set; }
 
-        #endregion        
+        #endregion
     }
 }
