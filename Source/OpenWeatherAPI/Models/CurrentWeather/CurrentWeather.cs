@@ -8,7 +8,7 @@ namespace OpenWeatherAPI
     /// <summary>
     /// Represents the current weather object that is represented by a 
     /// </summary>
-    public class CurrentWeather
+    public class CurrentWeather : BaseModel
     {
         #region Public Properties
 

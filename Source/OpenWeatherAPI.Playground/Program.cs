@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace OpenWeatherAPI.Playground
 {
@@ -17,10 +18,10 @@ namespace OpenWeatherAPI.Playground
             int.TryParse(Console.ReadLine(), out int id);
 
             // Process the data from the given API
-            var weather = openWeatherAPI.ProcessCurrentWeatherData(id).Result;
+            var currentWeather = openWeatherAPI.GetCurrentWeatherData(id).Result;
 
             // Output the temperature
-            Console.WriteLine($"Current Temperature: {weather.Main.MaxTemperature}");
+            Console.WriteLine($"Current Temperature: {currentWeather.Main.Tempterature}");
 
             // Prevent the console window from closing automatically
             Console.ReadKey();

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
@@ -29,6 +27,11 @@ namespace OpenWeatherAPI
         private readonly HttpClient mClient;
 
         /// <summary>
+        /// The base uri for the api
+        /// </summary>
+        private readonly string mBaseUri;
+
+        /// <summary>
         /// The api key for this instance
         /// </summary>
         private readonly string mApiKey;
@@ -40,8 +43,11 @@ namespace OpenWeatherAPI
         /// <summary>
         /// Default constructor
         /// </summary>
-        public OpenWeatherAPI(string defaultUri, string apiKey)
+        public OpenWeatherAPI(string baseUri, string apiKey)
         {
+            // Assign the base uri
+            mBaseUri = baseUri;
+
             // Assign the api key
             mApiKey = apiKey;
 
@@ -49,7 +55,6 @@ namespace OpenWeatherAPI
             mClient = new HttpClient();
 
             // Setup the client
-            mClient.BaseAddress = new Uri(defaultUri);
             mClient.DefaultRequestHeaders.Accept.Clear();
             mClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -63,24 +68,52 @@ namespace OpenWeatherAPI
         /// </summary>
         /// <param name="id">The city id</param>
         /// <returns>A <see cref="CurrentWeather"/> object</returns>
-        public async Task<CurrentWeather> ProcessCurrentWeatherData(int id)
+        public async Task<CurrentWeather> GetCurrentWeatherData(int id)
         {
-            // Await the client response
-            string response = await mClient.GetStringAsync(GetCurrentWeatherData(id));
-
-            // Parse the response data to a current weather object
-            return JsonConvert.DeserializeObject<CurrentWeather>(response);
+            return ProcessData<CurrentWeather>(await GetDataAsync($"weather?id={id}&APPID={mApiKey}"));
         }
 
         #endregion
 
         #region Private Methods
-
-        private string GetCurrentWeatherData(int id)
+        
+        /// <summary>
+        /// Gets the data from the given url and returns the raw json data as string
+        /// </summary>
+        /// <param name="apiQuery">The specified api query</param>
+        /// <returns></returns>
+        private async Task<string> GetDataAsync(string apiQuery)
         {
-            return $@"{mClient.BaseAddress}/weather?id={id}&APPID={mApiKey}";
-        }            
+            try
+            {
+                // Get the data
+                var response = await mClient.GetAsync($"{mBaseUri}/{apiQuery}");
 
+                // Ensure that the status code of the response is success
+                response.EnsureSuccessStatusCode();
+
+                // Read the response as string and return it
+                return await response.Content.ReadAsStringAsync();
+            }
+            catch(HttpRequestException ex)
+            {
+                // TODO handle exception
+                throw ex;
+            }
+
+        }
+
+        /// <summary>
+        /// Processes the given from a given type to its class
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private T ProcessData<T>(string data)
+        {
+            // Parse the response data to a current weather object
+            return JsonConvert.DeserializeObject<T>(data);
+        }
 
         #endregion
     }
