@@ -24,7 +24,7 @@ namespace OpenWeatherAPI.Playground
                var currentWeather = openWeatherAPI.GetCurrentWeatherData(id).Result;
 
                 // Output the temperature
-                Console.WriteLine($"Current Temperature: {currentWeather.Main.Temperature.Celsius} °C");
+                Console.WriteLine($"Current Temperature: {currentWeather.Main.Temperature.ToCelsius()} °C");
                
             }
         }

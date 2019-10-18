@@ -1,0 +1,28 @@
+﻿<Window x:Class="OpenWeatherAPI.Playground.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OpenWeatherAPI.Playground.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"
+              Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Content="Non retard units"
+                             Margin="5"
+                             IsChecked="{Binding UseNonRetardUnits}"/>
+                <RadioButton Content="Retard units"
+                             Margin="5"
+                             IsChecked="{Binding UseNonRetardUnits, Converter={local:BooleanInvertConverter}}"/>
+            </StackPanel>
+        </Grid>
+        
+    </Grid>
+</Window>
