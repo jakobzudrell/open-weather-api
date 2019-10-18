@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace OpenWeatherAPI.Playground.WPF
+namespace SimpleWeather
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

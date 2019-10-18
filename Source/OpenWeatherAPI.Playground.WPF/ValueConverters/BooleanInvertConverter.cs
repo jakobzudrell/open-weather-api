@@ -6,12 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace OpenWeatherAPI.Playground.WPF
+namespace SimpleWeather
 {
     public class BooleanInvertConverter : BaseValueConverter<BooleanInvertConverter>
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) => !(bool)value;
 
-        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => !(bool)value;
     }
 }

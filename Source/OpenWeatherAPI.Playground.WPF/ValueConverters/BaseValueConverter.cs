@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Markup;
 
-namespace OpenWeatherAPI.Playground.WPF
+namespace SimpleWeather
 {
     /// <summary>
     /// A base value converter that allows direct XAML usage

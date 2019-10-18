@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenWeatherAPI", "OpenWeath
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenWeatherAPI.Playground", "OpenWeatherAPI.Playground\OpenWeatherAPI.Playground.csproj", "{AEE68FF9-214F-433C-9A4E-1F1B4DDBF445}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenWeatherAPI.Playground.WPF", "OpenWeatherAPI.Playground.WPF\OpenWeatherAPI.Playground.WPF.csproj", "{B76227AF-A1EC-481E-AA0E-3B34D9CFC44C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleWeather", "OpenWeatherAPI.Playground.WPF\SimpleWeather.csproj", "{B76227AF-A1EC-481E-AA0E-3B34D9CFC44C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
